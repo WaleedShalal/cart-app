@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import qs from 'query-string';
 import './Details.css';
 
 class Details extends Component {
 	handleBack = () => {
-		console.log('Save');
-		// this.props.history.push('/cart');
 		this.props.history.replace('/cart');
 	};
 
 	render() {
-		console.log(this.props);
-		const res = qs.parse(this.props.location.search);
-		console.log(res);
 		const purchased = this.props.purchased.filter(
 			(p) => p.id === parseInt(this.props.match.params.id),
 		)[0];
-		console.log(purchased);
 		return (
 			<React.Fragment>
 				<h1 className='mb-4 text-left'>Details For Product</h1>
@@ -40,7 +33,7 @@ class Details extends Component {
 					</div>
 					<div className='col-12 d-flex'>
 						<button onClick={this.handleBack} className='btn btn-primary'>
-							Back To Cart
+							Back To ShoppingCart
 						</button>
 					</div>
 				</div>

@@ -29,7 +29,6 @@ class App extends Component {
 		let { data } = await axios.get('https://fakestoreapi.com/products');
 		data.forEach((ele) => {
 			ele.count = 0;
-			ele.isCart = false;
 		});
 		//SetState
 		this.setState({ products: data, filter: data });
@@ -44,90 +43,35 @@ class App extends Component {
 	// 	this.setState({ products });
 	// };
 
-	//Reset All Products Count To 1
-	handleReset = () => {
-		//Clone
-		let purchased = [...this.state.purchased];
-		//Edit
-		purchased = purchased.map((p) => {
-			p.count = 1;
-			return p;
-		});
-		//SetState
-		this.setState({ purchased });
-	};
-
-	//Showing Current Products Count
-	handleQuantity = (e, pur) => {
-		//Clone
-		let purchased = [...this.state.purchased];
-		let index = purchased.indexOf(pur);
-		purchased[index] = { ...purchased[index] };
-		//Edit
-		purchased[index].count = e.target.value;
-		//SetState
-		this.setState({ purchased });
-	};
-
 	//Add Product To Cart
 	handleCartAdd = (pur) => {
 		//Clone
-		let filter = [...this.state.filter];
 		let purchased = [...this.state.purchased];
 		//Edit
-		let index = filter.indexOf(pur);
-		filter[index] = { ...filter[index] };
-		let Cart = false;
+		let inCart = false;
 		purchased.forEach((item) => {
 			if (item.id === pur.id) {
 				item.count++;
-				Cart = true;
+				inCart = true;
 			}
 		});
-		if (!Cart) {
-			purchased.push({ ...pur, isCart: true });
-			filter[index].isCart = true;
+		if (!inCart) {
+			purchased.push({ ...pur, count: 1 });
 		}
 		//SetState
-		this.setState({ filter, purchased });
-		let txt = purchased[0];
-		console.log(filter.indexOf(txt));
-		//Put Purchased into local storage
+		this.setState({ purchased });
+		//Put Purchased & Filter into local storage
 		localStorage.setItem('purchased', JSON.stringify(purchased));
-		localStorage.setItem('filter', JSON.stringify(filter));
 	};
 
 	//Remove Product From Cart Within Home Component
 	handleCartRemove = (pur) => {
 		//Clone
-		let filter = [...this.state.filter];
 		let purchased = [...this.state.purchased];
 		//Edit
-		let index = filter.indexOf(pur);
-		filter[index] = { ...filter[index] };
-		filter[index].isCart = false;
 		purchased = purchased.filter((item) => item.id !== pur.id);
 		//SetState
-		this.setState({ filter, purchased });
-		localStorage.setItem('purchased', JSON.stringify(purchased));
-		localStorage.setItem('filter', JSON.stringify(filter));
-	};
-
-	//Remove Product From Cart Within Cart Component
-	handleDelete = (product) => {
-		//Clone
-		let filter = [...this.state.filter];
-		let purchased = [...this.state.purchased];
-		//Edit
-		let deletedProduct = filter.filter((pro) => pro.id === product.id)[0];
-		let indexProduct = filter.indexOf(deletedProduct);
-		filter[indexProduct] = { ...filter[indexProduct] };
-		filter[indexProduct].isCart = false;
-		purchased = purchased.filter((p) => p.id !== product.id);
-		//SetState
-		this.setState({ filter, purchased });
-		console.log(filter);
-		//Remove Purchased from local storage
+		this.setState({ purchased });
 		localStorage.setItem('purchased', JSON.stringify(purchased));
 	};
 
@@ -165,6 +109,58 @@ class App extends Component {
 				this.setState({ filter: products, filterValue: e.currentTarget.value });
 			}
 		}
+	};
+
+	//Reset All Products Count To 1
+	handleReset = () => {
+		//Clone
+		let purchased = [...this.state.purchased];
+		//Edit
+		purchased = purchased.map((p) => {
+			p.count = 1;
+			return p;
+		});
+		//SetState
+		this.setState({ purchased });
+	};
+
+	//Clear All Products From Cart
+	handleClear = () => {
+		//Clone
+		let purchased = [...this.state.purchased];
+		//Edit
+		purchased = [];
+		//SetState
+		this.setState({ purchased });
+	};
+
+	//Remove Product From Cart Within Cart Component
+	handleDelete = (product) => {
+		//Clone
+		let filter = [...this.state.filter];
+		let purchased = [...this.state.purchased];
+		//Edit
+		let deletedProduct = filter.filter((pro) => pro.id === product.id)[0];
+		let indexProduct = filter.indexOf(deletedProduct);
+		filter[indexProduct] = { ...filter[indexProduct] };
+		filter[indexProduct].isCart = false;
+		purchased = purchased.filter((p) => p.id !== product.id);
+		//SetState
+		this.setState({ filter, purchased });
+		//Remove Purchased from local storage
+		localStorage.setItem('purchased', JSON.stringify(purchased));
+	};
+
+	//Showing Current Products Count
+	handleQuantity = (e, pur) => {
+		//Clone
+		let purchased = [...this.state.purchased];
+		let index = purchased.indexOf(pur);
+		purchased[index] = { ...purchased[index] };
+		//Edit
+		purchased[index].count = e.target.value;
+		//SetState
+		this.setState({ purchased });
 	};
 
 	render() {
@@ -219,6 +215,7 @@ class App extends Component {
 									handleReset={this.handleReset}
 									handleQuantity={this.handleQuantity}
 									handleDelete={this.handleDelete}
+									handleClear={this.handleClear}
 									{...props}
 								/>
 							)}

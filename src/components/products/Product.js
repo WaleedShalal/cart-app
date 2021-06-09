@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom';
 import './Product.css';
 
 class Product extends Component {
-	getClasses() {
-		return this.props.purchased.count === 0
-			? 'badge badge-warning m-2'
-			: 'badge badge-primary m-2';
-	}
-
 	render() {
 		return (
 			<React.Fragment>

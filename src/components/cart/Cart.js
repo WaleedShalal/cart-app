@@ -17,25 +17,26 @@ class ShoppingCart extends Component {
 	};
 
 	render() {
-		console.log(this.props.purchased);
 		const {
 			purchased,
 			handleReset,
 			handleDelete,
+			handleClear,
 			handleQuantity,
-			// handleDecrease,
 		} = this.props;
 		return (
 			<React.Fragment>
-				<h1>Shopping Cart</h1>
 				{purchased.length === 0 ? (
-					<h4>No Items To Show</h4>
+					<h4 className='text-center m-2'>No Items To Show</h4>
 				) : (
 					<div>
 						<button
 							className='btn btn-primary btn-sm m-2'
 							onClick={handleReset}>
 							Reset All
+						</button>
+						<button className='btn btn-danger btn-sm m-2' onClick={handleClear}>
+							Clear All
 						</button>
 						<table className='table'>
 							<thead>
