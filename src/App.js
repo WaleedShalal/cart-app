@@ -181,6 +181,7 @@ class App extends Component {
 									filterValue={filterValue}
 									handleCartAdd={this.handleCartAdd}
 									handleCartRemove={this.handleCartRemove}
+									handleClear={this.handleClear}
 									handleCustomize={this.handleCustomize}
 									{...props}
 								/>

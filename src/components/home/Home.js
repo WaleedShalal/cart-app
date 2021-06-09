@@ -5,7 +5,7 @@ class Home extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div className='d-flex justify-content-center'>
+				<div className='d-flex justify-content-center m-3'>
 					<div className='sort m-2'>
 						Sort by:
 						<select
@@ -29,6 +29,13 @@ class Home extends Component {
 							<option value='jewelery'>jewelery</option>
 							<option value='electronics'>electronics</option>
 						</select>
+					</div>
+					<div className='m-1 ml-auto'>
+						<button
+							className='btn btn-danger btn-sm '
+							onClick={this.props.handleClear}>
+							Remove All
+						</button>
 					</div>
 				</div>
 				<div className='container-fluid'>
