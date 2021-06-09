@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 class Navbar extends Component {
-	state = {
-		username: '',
-	};
+	// state = {
+	// 	username: '',
+	// };
 
 	// async componentDidMount() {
 	// 	const { data } = await axios.get('http://localhost:3000/user/');
@@ -28,28 +28,13 @@ class Navbar extends Component {
 								Home
 							</NavLink>
 						</li>
-						{/* <li className='nav-item'>
-							<NavLink className='nav-link' to='/contact'>
-								Contact
-							</NavLink>
-						</li> */}
-						{/* <li className='nav-item'>
-							<NavLink className='nav-link' to='/about'>
-								About
-							</NavLink>
-						</li> */}
-						{/* <li className='nav-item'>
-							<NavLink className='nav-link' to='/menu'>
-								Menu
-							</NavLink>
-						</li> */}
-						{this.state.username === 'admin' && (
+						{/* {this.state.username === 'admin' && (
 							<li className='nav-item'>
 								<NavLink className='nav-link' to='/admin'>
 									Admin
 								</NavLink>
 							</li>
-						)}
+						)} */}
 
 						<li className='nav-item'>
 							<NavLink className='nav-link' to='/cart'>
@@ -65,15 +50,15 @@ class Navbar extends Component {
 						</li> */}
 					</ul>
 				</div>
+				<span className='badge badge-primary'>
+					<i className='fas fa-shopping-cart'></i>
+					{this.props.productsPurchased}
+				</span>
 				{/* <span className='badge badge-primary m-2'>
 					<i className='far fa-user'></i> {this.state.username}
 				</span> */}
-				{this.state.username !== 'admin' && (
-					<span className='badge badge-primary'>
-						<i className='fas fa-shopping-cart'></i>
-						{this.props.productsPurchased}
-					</span>
-				)}
+				{/* {this.state.username !== 'admin' && (
+				)} */}
 			</nav>
 		);
 	}

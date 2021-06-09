@@ -60,7 +60,7 @@ class App extends Component {
 		}
 		//SetState
 		this.setState({ purchased });
-		//Put Purchased & Filter into local storage
+		//Put Purchased into local storage
 		localStorage.setItem('purchased', JSON.stringify(purchased));
 	};
 
@@ -72,6 +72,7 @@ class App extends Component {
 		purchased = purchased.filter((item) => item.id !== pur.id);
 		//SetState
 		this.setState({ purchased });
+		//Remove Purchased From local storage
 		localStorage.setItem('purchased', JSON.stringify(purchased));
 	};
 
@@ -116,9 +117,9 @@ class App extends Component {
 		//Clone
 		let purchased = [...this.state.purchased];
 		//Edit
-		purchased = purchased.map((p) => {
-			p.count = 1;
-			return p;
+		purchased = purchased.map((pur) => {
+			pur.count = 1;
+			return pur;
 		});
 		//SetState
 		this.setState({ purchased });
@@ -132,21 +133,18 @@ class App extends Component {
 		purchased = [];
 		//SetState
 		this.setState({ purchased });
+		//Remove Purchased from local storage
+		localStorage.setItem('purchased', JSON.stringify(purchased));
 	};
 
 	//Remove Product From Cart Within Cart Component
 	handleDelete = (product) => {
 		//Clone
-		let filter = [...this.state.filter];
 		let purchased = [...this.state.purchased];
 		//Edit
-		let deletedProduct = filter.filter((pro) => pro.id === product.id)[0];
-		let indexProduct = filter.indexOf(deletedProduct);
-		filter[indexProduct] = { ...filter[indexProduct] };
-		filter[indexProduct].isCart = false;
-		purchased = purchased.filter((p) => p.id !== product.id);
+		purchased = purchased.filter((pur) => pur.id !== product.id);
 		//SetState
-		this.setState({ filter, purchased });
+		this.setState({ purchased });
 		//Remove Purchased from local storage
 		localStorage.setItem('purchased', JSON.stringify(purchased));
 	};
