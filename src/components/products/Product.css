@@ -1,0 +1,27 @@
+.cart-img {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+.cart-input {
+	max-width: 60px;
+}
+
+.cart-input[type='number']::-webkit-inner-spin-button,
+.cart-input[type='number']::-webkit-outer-spin-button {
+	opacity: 1;
+	cursor: pointer;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+.fa-trash {
+	color: blue;
+	transition: all 0.2s linear;
+}
+.fa-trash:hover {
+	transform: scale(1.15);
+	color: red;
+}

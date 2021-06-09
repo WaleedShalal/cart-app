@@ -1,0 +1,9 @@
+.table tbody tr td:nth-of-type(3) {
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.table tbody tr td:nth-of-type(6) {
+	min-width: 100px;
+}
