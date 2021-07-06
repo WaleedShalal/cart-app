@@ -1,5 +1,46 @@
-.main-nav {
-	position: sticky;
-	top: 0px;
-	z-index: 2;
+.upper-nav {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  background-color: #293133;
+  color: white;
 }
+.upper-nav .left-side {
+  text-align: left;
+  padding-left: 9px;
+}
+@media (max-width: 575.98px) {
+  .upper-nav .left-side {
+    font-size: 0.85em;
+  }
+}
+.upper-nav .right-side {
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 575.98px) {
+  .upper-nav .right-side {
+    font-size: 0.85em;
+  }
+}
+.upper-nav .right-side .logs .login, .upper-nav .right-side .logs .logout {
+  color: white;
+  margin-left: 5px;
+}
+.upper-nav .right-side .logs::before {
+  content: "";
+  border-left: 1px solid white;
+  margin-left: 5px;
+}
+
+@media (max-width: 575.98px) {
+  .main-nav button {
+    font-size: 1em;
+  }
+}
+@media (max-width: 575.98px) {
+  .main-nav ul {
+    font-size: 0.85em;
+  }
+}
+
+/*# sourceMappingURL=Navbar.css.map */

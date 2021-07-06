@@ -1,26 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-// import axios from 'axios';
 import './Navbar.css';
 
-class Navbar extends Component {
-	// state = {
-	// 	username: '',
-	// };
-
-	// async componentDidMount() {
-	// 	const { data } = await axios.get('http://localhost:3000/user/');
-	// 	//Clone
-	// 	const state = { ...this.state };
-	// 	//Edit
-	// 	state.username = data.username;
-	// 	//SetState
-	// 	this.setState(state);
-	// }
-
-	render() {
-		return (
+const Navbar = (props) => {
+	return (
+		<React.Fragment>
+			<div className='upper-nav container-fluid '>
+				<div className='left-side'>About App</div>
+				<div className='right-side'>
+					<div className='user'>
+						<i className='far fa-user'></i>
+						Hi, {JSON.parse(localStorage.getItem('username'))}
+					</div>
+					<div className='logs'>
+						{props.userData.username === '' ? (
+							<NavLink className='login' to='/login'>
+								Login
+							</NavLink>
+						) : (
+							<NavLink className='logout' to='/logout'>
+								Logout
+							</NavLink>
+						)}
+					</div>
+					<div className='ml-1'>
+						<span className='badge badge-primary'>
+							<i className='fas fa-shopping-cart'></i>
+							{props.productsPurchased}
+						</span>
+					</div>
+				</div>
+			</div>
 			<nav className='main-nav navbar navbar-expand-lg navbar-dark bg-dark'>
+				<button
+					className='navbar-toggler'
+					type='button'
+					data-toggle='collapse'
+					data-target='#navbarNav'
+					aria-controls='navbarNav'
+					aria-expanded='false'
+					aria-label='Toggle navigation'>
+					<span className='navbar-toggler-icon'></span>
+				</button>
 				<div className='collapse navbar-collapse' id='navbarNav'>
 					<ul className='navbar-nav'>
 						<li className='nav-item'>
@@ -28,40 +49,23 @@ class Navbar extends Component {
 								Home
 							</NavLink>
 						</li>
-						{/* {this.state.username === 'admin' && (
+						{props.userData.username === 'admin' && (
 							<li className='nav-item'>
 								<NavLink className='nav-link' to='/admin'>
 									Admin
 								</NavLink>
 							</li>
-						)} */}
-
+						)}
 						<li className='nav-item'>
 							<NavLink className='nav-link' to='/cart'>
 								ShoppingCart
 							</NavLink>
 						</li>
 					</ul>
-					<ul className='d-flex ml-auto navbar-nav'>
-						{/* <li className='nav-item ml-auto'>
-							<NavLink className='nav-link' to='/login'>
-								Login
-							</NavLink>
-						</li> */}
-					</ul>
 				</div>
-				<span className='badge badge-primary'>
-					<i className='fas fa-shopping-cart'></i>
-					{this.props.productsPurchased}
-				</span>
-				{/* <span className='badge badge-primary m-2'>
-					<i className='far fa-user'></i> {this.state.username}
-				</span> */}
-				{/* {this.state.username !== 'admin' && (
-				)} */}
 			</nav>
-		);
-	}
-}
+		</React.Fragment>
+	);
+};
 
 export default Navbar;

@@ -1,117 +1,107 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Joi from 'joi-browser';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
-class Login extends Component {
-	state = {
-		username: '',
-		password: '',
-		errors: {},
+const Login = (props) => {
+	const { values, setErrors, setValues, errors, setLogged, setUserData } =
+		props;
+	const history = useHistory();
+	const userRef = useRef();
+
+	useEffect(() => {
+		userRef.current.focus();
+	}, []);
+
+	const schema = {
+		username: Joi.string().min(3).max(10).required(),
+		password: Joi.string().min(3).max(10).required(),
 	};
 
-	username = React.createRef();
-
-	componentDidMount() {
-		this.username.current.focus();
-	}
-
-	schema = {
-		username: Joi.string().required(),
-		password: Joi.string().required(),
-	};
-
-	handleSubmit = async (e) => {
-		// e.preventDefault();
-		// const username = this.username.current.value;
-		// console.log(username);
-		const errors = this.validate();
-		console.log(errors);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const errors = validate();
 		if (errors) return;
-		//Call Backend
-		const obj = { ...this.state };
-		delete obj.password;
-		delete obj.errors;
-		await axios.patch('http://localhost:3000/user/', obj);
-		console.log('Submitted');
+		const handleReplace = () => {
+			history.replace('/home');
+		};
+		handleReplace();
+		setLogged(true);
+		let data = { ...values };
+		let user = data.username;
+		let pass = data.password;
+		// data = values.username;
+		setUserData(data);
+		localStorage.setItem('username', JSON.stringify(user));
+		localStorage.setItem('password', JSON.stringify(pass));
 	};
 
-	validate = () => {
+	const validate = () => {
 		const errors = {};
-		//Clone
-		const state = { ...this.state };
-		delete state.errors;
-		const res = Joi.validate(state, this.schema, { abortEarly: false });
-		// console.log(res);
+		const res = Joi.validate(values, schema, { abortEarly: false });
 		if (res.error === null) {
-			this.setState({ errors: {} });
-			return null;
+			setErrors({});
+			return false;
 		}
 		for (const error of res.error.details) {
 			errors[error.path] = error.message;
 		}
-		//SetState
-		this.setState({ errors });
+		setErrors(errors);
 		return errors;
 	};
 
-	handleChange = (e) => {
-		//Clone
-		let state = { ...this.state };
-		//Edit
-		state[e.currentTarget.name] = e.currentTarget.value;
-		//SetState
-		this.setState(state);
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setValues({
+			...values,
+			[name]: value,
+		});
 	};
 
-	render() {
-		return (
-			<React.Fragment>
-				<h1>Login</h1>
-				<form onSubmit={this.handleSubmit}>
-					<div className='form-group'>
-						<label htmlFor='User'>Username</label>
-						<input
-							type='text'
-							ref={this.username}
-							name='username'
-							value={this.state.username}
-							onChange={this.handleChange}
-							className='form-control'
-							id='User'
-							// aria-describedby='emailHelp'
-						/>
-						{this.state.errors.username && (
-							<div className='alert alert-danger'>
-								{this.state.errors.username}
-							</div>
-						)}
-						{/* <small id='emailHelp' className='form-text text-muted'>
-							We'll never share your email with anyone else.
-						</small> */}
-					</div>
-					<div className='form-group'>
-						<label htmlFor='Password'>Password</label>
-						<input
-							type='password'
-							name='password'
-							value={this.state.password}
-							onChange={this.handleChange}
-							className='form-control'
-							id='Password'
-						/>
-						{this.state.errors.password && (
-							<div className='alert alert-danger'>
-								{this.state.errors.password}
-							</div>
-						)}
-					</div>
-					<button type='submit' className='btn btn-primary'>
-						Log in
-					</button>
-				</form>
-			</React.Fragment>
-		);
-	}
-}
+	return (
+		<React.Fragment>
+			<h1>Login Form </h1>
+			<form onSubmit={handleSubmit}>
+				<div className='form-group'>
+					<label htmlFor='User'>Username</label>
+					<input
+						type='text'
+						name='username'
+						id='User'
+						ref={userRef}
+						onChange={handleChange}
+						value={values.username}
+						autoComplete='off'
+						spellCheck='false'
+						autoCorrect='off'
+						className='form-control'
+					/>
+					{errors.username && (
+						<div className='alert alert-danger'>{errors.username}</div>
+					)}
+				</div>
+				<div className='form-group'>
+					<label htmlFor='Password'>Password</label>
+					<input
+						type='password'
+						name='password'
+						id='Password'
+						onChange={handleChange}
+						value={values.password}
+						className='form-control'
+					/>
+					{errors.password && (
+						<div className='alert alert-danger'>{errors.password}</div>
+					)}
+				</div>
+				<button
+					type='button'
+					onClick={handleSubmit}
+					className='btn btn-primary'>
+					Log in
+				</button>
+			</form>
+		</React.Fragment>
+	);
+};
 
 export default Login;

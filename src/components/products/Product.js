@@ -17,20 +17,30 @@ class Product extends Component {
 						</Link>
 					</td>
 					<td>
-						<input
-							className='cart-input text-center'
-							type='number'
-							min='0'
-							value={this.props.purchased.count}
-							onChange={(e) =>
-								this.props.handleQuantity(e, this.props.purchased)
-							}
-						/>
+						<div className='d-flex'>
+							<button
+								name='decrease'
+								onClick={(e) =>
+									this.props.handleQuantity(e, this.props.purchased)
+								}
+								className='btn btn-primary btn-sm'>
+								-
+							</button>
+							<div className='ml-3 mr-3'>{this.props.purchased.count}</div>
+							<button
+								name='increase'
+								onClick={(e) =>
+									this.props.handleQuantity(e, this.props.purchased)
+								}
+								className='btn btn-primary btn-sm'>
+								+
+							</button>
+						</div>
 					</td>
 					<td>
 						<i
 							style={{ cursor: 'pointer' }}
-							className='fas fa-trash m-2'
+							className='fas fa-trash m-2 btn btn-outline-danger'
 							onClick={() => this.props.handleDelete(this.props.purchased)}></i>
 					</td>
 					<td>

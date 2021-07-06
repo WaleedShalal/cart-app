@@ -1,0 +1,46 @@
+$mainFontSize: .85em;
+
+.upper-nav {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	background-color: #293133;
+	color: white;
+	.left-side {
+		text-align: left;
+		padding-left: 9px;
+		@media (max-width: 575.98px) { 
+			font-size: $mainFontSize;
+		}
+	}
+	.right-side{
+		display: flex;
+		justify-content: flex-end;
+		@media (max-width: 575.98px) { 
+			font-size: $mainFontSize;
+		}
+		.logs{
+			.login,.logout{
+				color: white;
+				margin-left: 5px;
+			}
+			&::before{
+				content: "";
+				border-left: 1px solid white;
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+.main-nav{
+	button{
+		@media (max-width: 575.98px) { 
+			font-size: 1em;
+		}	
+	}
+	ul{
+		@media (max-width: 575.98px) { 
+			font-size: $mainFontSize;
+		}	
+	}
+}

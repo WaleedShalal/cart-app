@@ -1,0 +1,14 @@
+footer {
+	display: flex;
+	width: 100%;
+	position: relative;
+	bottom: 0px;
+	flex-direction: column;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	font-size: 1em;
+	text-align: center;
+	text-transform: capitalize;
+	height: 30px;
+}

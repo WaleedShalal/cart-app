@@ -1,0 +1,31 @@
+.cart-img {
+	max-width: 50px;
+	max-height: 50px;
+	@media (max-width: 575.98px) {
+		max-width: 35px;
+		max-height: 35px;
+	}
+}
+.cart-input {
+	max-width: 60px;
+	&[type='number']::-webkit-inner-spin-button,
+	&[type='number']::-webkit-outer-spin-button {
+		opacity: 1;
+		cursor: pointer;
+	}
+	@media (max-width: 575.98px) {
+		max-width: 40px;
+	}
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+.fa-trash {
+	color: #dc3545;
+	transition: all 0.2s linear;
+	&:hover {
+		transform: scale(1.15);
+	}
+}

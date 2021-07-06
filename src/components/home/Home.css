@@ -1,59 +1,171 @@
-.main-ul {
-	display: flex;
-	justify-content: space-between;
-	flex-flow: row wrap;
+main {
 	margin-top: 30px;
+	min-height: 499px;
 }
-.main-ul li {
-	width: 24%;
-}
-
-.main-ul li .card {
+main .options {
 	width: 100%;
-	height: auto;
-	margin-bottom: 15px;
-	box-shadow: 1px 1px rgba(1, 1, 1, 0.2);
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+	justify-content: space-between;
 }
-.main-ul li .card:hover {
-	cursor: pointer;
+@media (max-width: 575.98px) {
+	main .options .filter {
+		text-align: center;
+		margin-bottom: 5px;
+	}
+	main .options .filter span {
+		font-size: 1em;
+	}
+	main .options .filter select {
+		width: 150px;
+		font-size: 1em;
+	}
+	main .options .sort {
+		text-align: center;
+		margin-bottom: 5px;
+	}
+	main .options .sort span {
+		font-size: 1em;
+	}
+	main .options .sort select {
+		width: 150px;
+		margin-left: 5px;
+		font-size: 1em;
+	}
+	main .options .button {
+		text-align: center;
+	}
 }
-.main-ul li .card:hover img {
-	transform: scale(1.1);
+@media (min-width: 575.99px) and (max-width: 991.98px) {
+	main .options .filter {
+		text-align: left;
+	}
+	main .options .filter span {
+		font-size: 1em;
+	}
+	main .options .filter select {
+		font-size: 1em;
+	}
+	main .options .sort {
+		text-align: center;
+	}
+	main .options .sort span {
+		font-size: 1em;
+	}
+	main .options .sort select {
+		font-size: 1em;
+	}
+	main .options .button {
+		text-align: right;
+	}
+}
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+	main .filter {
+		text-align: left;
+	}
+	main .filter span {
+		font-size: 1em;
+	}
+	main .filter select {
+		font-size: 1em;
+	}
+	main .sort {
+		text-align: center;
+	}
+	main .sort span {
+		font-size: 1em;
+	}
+	main .sort select {
+		font-size: 1em;
+	}
+	main .button {
+		text-align: right;
+	}
+}
+@media (min-width: 1199.99px) {
+	main .filter {
+		text-align: left;
+	}
+	main .filter span {
+		font-size: 1em;
+	}
+	main .filter select {
+		font-size: 1em;
+	}
+	main .sort {
+		text-align: center;
+	}
+	main .sort span {
+		font-size: 1em;
+	}
+	main .sort select {
+		font-size: 1em;
+	}
+	main .button {
+		text-align: right;
+	}
 }
 
-.card img {
+.products {
+	width: 100%;
+	display: flex;
+	flex-flow: wrap;
+	justify-content: space-between;
+	width: 100%;
+}
+@media (min-width: 575.99px) and (max-width: 991.98px) {
+	.products {
+		justify-content: space-evenly;
+	}
+}
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+	.products {
+		justify-content: space-evenly;
+	}
+}
+.products .card {
+	width: 265px;
+	height: auto;
+	margin-bottom: 30px;
+	box-shadow: 1px 1px rgba(1, 1, 1, 0.2);
+	transition: all 0.2s linear;
+}
+@media (max-width: 575.98px) {
+	.products .card {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+.products .card img {
 	width: 60%;
 	height: 190px;
 	margin: 12px auto;
 	transition: all 0.2s linear;
 }
-
-/* .card .card-body {
-	height: auto;
-} */
-
-.card .card-body p:first-of-type {
+.products .card:hover {
+	cursor: pointer;
+	box-shadow: 2px 2px rgba(1, 1, 1, 0.2);
+}
+.products .card:hover img {
+	transform: scale(1.1);
+}
+.products .card .card-body p:first-of-type {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
 	margin-bottom: auto;
 }
-
-.card .card-body p:last-of-type {
+.products .card .card-body p:last-of-type {
 	text-align: center;
 	font-weight: bold;
 }
-
-.card .card-body .btn-container {
+.products .card .card-body .btn-container {
 	display: flex;
 }
-
-.card .card-body button {
+.products .card .card-body button {
 	margin: 0px auto;
 }
 
-.sort :hover,
-.sort:hover select:hover > option:hover {
-	cursor: pointer;
-}
+/*# sourceMappingURL=Home.css.map */
