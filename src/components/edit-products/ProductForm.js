@@ -5,6 +5,7 @@ import {
   adminAddAction,
   adminEditAction,
 } from '../../redux/shoppingcart/shoppingCartActions';
+// import './ProductForm.css';
 
 const ProductForm = () => {
   const { fetchedData } = useSelector((state) => state);
@@ -70,6 +71,7 @@ const ProductForm = () => {
             spellCheck='false'
             className='form-control'
             step='1'
+            autoComplete='off'
           />
         </div>
         <div className='form-group'>
@@ -82,6 +84,7 @@ const ProductForm = () => {
             value={newProduct.title}
             onChange={handleChange}
             spellCheck='false'
+            autoComplete='off'
           />
         </div>
         <div className='form-group'>
@@ -104,20 +107,24 @@ const ProductForm = () => {
             value={newProduct.description}
             onChange={handleChange}
             spellCheck='false'
+            autoComplete='off'
             className='form-control'
           />
         </div>
         <div className='form-group'>
-          <label htmlFor='category'>category</label>
-          <input
-            type='text'
-            name='category'
-            id='category'
-            spellCheck='false'
-            value={newProduct.category}
+          <label htmlFor='categorys'>Category</label>
+          <select
             onChange={handleChange}
-            className='form-control'
-          />
+            name='category'
+            value={newProduct.category}
+            className='category-option form-control'
+            id='categorys'>
+            <option value=''>Select ---</option>
+            <option value="men's clothing">men's clothing</option>
+            <option value="women's clothing">women's clothing</option>
+            <option value='jewelery'>jewelery</option>
+            <option value='electronics'>electronics</option>
+          </select>
         </div>
         <div className='form-group'>
           <label htmlFor='image'>Image URL</label>
@@ -126,6 +133,7 @@ const ProductForm = () => {
             name='image'
             id='image'
             spellCheck='false'
+            autoComplete='off'
             value={newProduct.image}
             onChange={handleChange}
             className='form-control'
