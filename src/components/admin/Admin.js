@@ -3,7 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { adminDeleteAction } from '../../redux/shoppingcart/shoppingCartActions';
 import { NavLink } from 'react-router-dom';
-import { fetchProducts } from '../../redux/shoppingcart/shoppingCartActions';
+import {
+  fetchProducts,
+  fetchDefaultProducts,
+} from '../../redux/shoppingcart/shoppingCartActions';
 
 const Admin = () => {
   const { fetchedData } = useSelector((state) => state);
@@ -12,19 +15,24 @@ const Admin = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-  let test = fetchedData.products.filter((product) => product.id === 6);
-  console.log(test);
 
   return (
     <React.Fragment>
       <h1>Admin</h1>
-      <NavLink to='/productform/new'>
+      <div className='d-flex justify-content-between mb-2'>
+        <NavLink to='/productform/new'>
+          <button
+            onClick={() => history.push('/productform/new')}
+            className='btn btn-primary m-1'>
+            Add
+          </button>
+        </NavLink>
         <button
-          onClick={() => history.push('/productform/new')}
-          className='btn btn-primary'>
-          Add
+          onClick={() => dispatch(fetchDefaultProducts())}
+          className='btn btn-primary m-1'>
+          Reset Default
         </button>
-      </NavLink>
+      </div>
       <table className='table'>
         <thead>
           <tr>

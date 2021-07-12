@@ -111,7 +111,6 @@ export const adminAddAction = (newProduct) => {
 };
 
 export const adminEditProduct = (itemId, editedItem) => {
-  console.log(editedItem);
   return {
     type: actionsTypes.EDIT_PRODUCT,
     itemId,
@@ -140,9 +139,27 @@ export const adminDeleteProduct = (item) => {
 export const adminDeleteAction = (item) => {
   return (dispatch) => {
     axios.delete('https://fakestoreapi.com/products/' + item.id).then((res) => {
-      console.log(res);
       dispatch(adminDeleteProduct(item));
     });
+  };
+};
+
+export const fetchDefaultProducts = () => {
+  return (dispatch) => {
+    dispatch(fetchProductsRequest());
+    axios
+      .get('https://fakestoreapi.com/products')
+      .then((res) => {
+        const items = res.data;
+        items.forEach((item) => {
+          item.count = 0;
+        });
+        dispatch(fetchProductsSuccess(items));
+      })
+      .catch((error) => {
+        const errors = error.message;
+        dispatch(fetchProductsFailure(errors));
+      });
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   addCart,
@@ -11,13 +11,6 @@ import './Home.css';
 const Home = () => {
   const { fetchedData } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { loginInfo } = useSelector((state) => state);
-
-  console.log(fetchedData.filter);
-
-  useEffect(() => {
-    loginInfo.logged && dispatch(removeAllCart());
-  }, [dispatch, loginInfo.logged, loginInfo.userData]);
 
   return (
     <React.Fragment>

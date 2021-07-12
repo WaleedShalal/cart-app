@@ -11,7 +11,10 @@ import Login from './components/login/Login';
 import Logout from './components/login/Logout';
 import Admin from './components/admin/Admin';
 import Footer from './components/footer/Footer';
-import { fetchProducts } from './redux/shoppingcart/shoppingCartActions';
+import {
+  fetchProducts,
+  removeAllCart,
+} from './redux/shoppingcart/shoppingCartActions';
 import AboutApp from './components/about-app/AboutApp';
 
 const App = () => {
@@ -22,8 +25,10 @@ const App = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    loginInfo.logged && dispatch(removeAllCart());
+  }, [dispatch, loginInfo.logged, loginInfo.userData]);
 
-  
   return (
     <React.Fragment>
       <Navbar />
