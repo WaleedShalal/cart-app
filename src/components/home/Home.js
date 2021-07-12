@@ -13,6 +13,8 @@ const Home = () => {
   const dispatch = useDispatch();
   const { loginInfo } = useSelector((state) => state);
 
+  console.log(fetchedData.filter);
+
   useEffect(() => {
     loginInfo.logged && dispatch(removeAllCart());
   }, [dispatch, loginInfo.logged, loginInfo.userData]);

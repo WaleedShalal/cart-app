@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  adminAddAction,
+  adminEditAction,
+} from '../../redux/shoppingcart/shoppingCartActions';
 
 const ProductForm = () => {
+  const { fetchedData } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const [newProduct, setNewProduct] = useState({
     id: '',
     title: '',
@@ -13,22 +20,15 @@ const ProductForm = () => {
   });
   const { id } = useParams();
   const history = useHistory();
+
   useEffect(() => {
     let num = id;
     if (num !== 'new') {
-      async function letAPI() {
-        let { data } = await axios.get('http://localhost:8000/products/' + num);
-        setNewProduct({
-          id: data.id,
-          title: data.title,
-          price: data.price,
-          image: data.image,
-          description: data.description,
-          category: data.category,
-        });
-      }
-      letAPI();
+      setNewProduct(
+        fetchedData.products.filter((product) => product.id === +num)[0],
+      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleChange = (e) => {
@@ -45,16 +45,13 @@ const ProductForm = () => {
     //Add
     if (id === 'new') {
       //Call Backend
-      await axios.post('http://localhost:8000/products/', newProduct);
+      dispatch(adminAddAction(newProduct));
       //Edit
     } else {
       //Call Backend
       let product = { ...newProduct };
       delete product.id;
-      await axios.put(
-        'http://localhost:8000/products/' + newProduct.id,
-        product,
-      );
+      dispatch(adminEditAction(newProduct.id, product));
     }
     history.replace('/admin');
   };

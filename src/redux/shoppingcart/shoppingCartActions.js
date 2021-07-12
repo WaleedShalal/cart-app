@@ -25,7 +25,7 @@ export const fetchProducts = () => {
   return (dispatch) => {
     dispatch(fetchProductsRequest());
     axios
-      .get('http://localhost:8000/products')
+      .get('https://fakestoreapi.com/products')
       .then((res) => {
         const items = res.data;
         items.forEach((item) => {
@@ -95,6 +95,41 @@ export const itemQuantity = (e, item) => {
   };
 };
 // END ACTIONS FOR CART COMPONENT
+export const adminAddProduct = (newProduct) => {
+  return {
+    type: actionsTypes.ADD_PRODUCT,
+    newProduct,
+  };
+};
+
+export const adminAddAction = (newProduct) => {
+  return (dispatch) => {
+    axios.post('https://fakestoreapi.com/products/', newProduct).then((res) => {
+      dispatch(adminAddProduct(res.data));
+    });
+  };
+};
+
+export const adminEditProduct = (itemId, editedItem) => {
+  console.log(editedItem);
+  return {
+    type: actionsTypes.EDIT_PRODUCT,
+    itemId,
+    editedItem,
+  };
+};
+
+export const adminEditAction = (itemId, oldItem) => {
+  return (dispatch) => {
+    axios
+      .put('https://fakestoreapi.com/products/' + itemId, oldItem)
+      .then((res) => {
+        const editedItem = { ...res.data, id: itemId };
+        dispatch(adminEditProduct(itemId, editedItem));
+      });
+  };
+};
+
 export const adminDeleteProduct = (item) => {
   return {
     type: actionsTypes.DELETE_PRODUCT,
@@ -104,9 +139,11 @@ export const adminDeleteProduct = (item) => {
 
 export const adminDeleteAction = (item) => {
   return (dispatch) => {
-    axios.delete('http://localhost:8000/products/' + item.id).then(() => {
+    axios.delete('https://fakestoreapi.com/products/' + item.id).then((res) => {
+      console.log(res);
       dispatch(adminDeleteProduct(item));
     });
   };
 };
+
 // // END ACTIONS FOR ADMIN COMPONENT

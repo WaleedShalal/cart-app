@@ -22,6 +22,8 @@ const App = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+
+  
   return (
     <React.Fragment>
       <Navbar />

@@ -12,6 +12,8 @@ const Admin = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+  let test = fetchedData.products.filter((product) => product.id === 6);
+  console.log(test);
 
   return (
     <React.Fragment>
