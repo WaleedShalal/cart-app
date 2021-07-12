@@ -13,6 +13,12 @@
     font-size: 0.85em;
   }
 }
+.upper-nav .left-side .about-app {
+  color: white;
+}
+.upper-nav .left-side .about-app i {
+  font-size: 15px;
+}
 .upper-nav .right-side {
   display: flex;
   justify-content: flex-end;
@@ -22,12 +28,13 @@
     font-size: 0.85em;
   }
 }
-.upper-nav .right-side .logs .login, .upper-nav .right-side .logs .logout {
+.upper-nav .right-side .logs .login,
+.upper-nav .right-side .logs .logout {
   color: white;
   margin-left: 5px;
 }
 .upper-nav .right-side .logs::before {
-  content: "";
+  content: '';
   border-left: 1px solid white;
   margin-left: 5px;
 }

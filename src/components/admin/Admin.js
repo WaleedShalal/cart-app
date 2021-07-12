@@ -1,63 +1,68 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { adminDeleteAction } from '../../redux/shoppingcart/shoppingCartActions';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { fetchProducts } from '../../redux/shoppingcart/shoppingCartActions';
 
-const Admin = (props) => {
-	console.log(axios.get('http://localhost:8000/products'));
+const Admin = () => {
+  const { fetchedData } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
-	const handleMenuList = () => {
-		const product = props.products.map((product, index) => {
-			return (
-				<tr key={product.id}>
-					<td>{index + 1}</td>
-					<td>
-						<img className='cart-img' src={product.image} alt='' />
-					</td>
-					<td>{product.title}</td>
-					<td>{product.price}</td>
-					<td>
-						<i
-							onClick={() => props.history.push(`/productform/${product.id}`)}
-							style={{ cursor: 'pointer' }}
-							className='fas fa-edit'></i>
-					</td>
-					<td>
-						<i
-							onClick={() => props.handleAdminDelete(product)}
-							className='fas fa-trash'
-							style={{ cursor: 'pointer' }}></i>
-					</td>
-				</tr>
-			);
-		});
-		return product;
-	};
-	console.log(axios.get('http://localhost:8000/products'));
-	return (
-		<React.Fragment>
-			<h1>Admin</h1>
-			<NavLink to='/productform/new'>
-				<button
-					onClick={() => props.history.push('/productform/new')}
-					className='btn btn-primary'>
-					Add
-				</button>
-			</NavLink>
-			<table className='table'>
-				<thead>
-					<tr>
-						<th scope='col'>#</th>
-						<th scope='col'>Pro.Img</th>
-						<th scope='col'>Pro.Des</th>
-						<th scope='col'>Price</th>
-						<th scope='col'>Edit</th>
-						<th scope='col'>Delete</th>
-					</tr>
-				</thead>
-				<tbody>{handleMenuList()}</tbody>
-			</table>
-		</React.Fragment>
-	);
+  return (
+    <React.Fragment>
+      <h1>Admin</h1>
+      <NavLink to='/productform/new'>
+        <button
+          onClick={() => history.push('/productform/new')}
+          className='btn btn-primary'>
+          Add
+        </button>
+      </NavLink>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col'>#</th>
+            <th scope='col'>Pro.Img</th>
+            <th scope='col'>Pro.Des</th>
+            <th scope='col'>Price</th>
+            <th scope='col'>Edit</th>
+            <th scope='col'>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fetchedData.products.map((product, index) => {
+            return (
+              <tr key={product.id}>
+                <td>{index + 1}</td>
+                <td>
+                  <img className='cart-img' src={product.image} alt='' />
+                </td>
+                <td>{product.title}</td>
+                <td>{product.price}</td>
+                <td>
+                  <i
+                    onClick={() => history.push(`/productform/${product.id}`)}
+                    style={{ cursor: 'pointer' }}
+                    className='fas fa-edit'></i>
+                </td>
+                <td>
+                  <i
+                    onClick={() => dispatch(adminDeleteAction(product))}
+                    className='fas fa-trash'
+                    style={{ cursor: 'pointer' }}></i>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </React.Fragment>
+  );
 };
 
 export default Admin;
