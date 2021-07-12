@@ -7,6 +7,7 @@ import {
   fetchProducts,
   fetchDefaultProducts,
 } from '../../redux/shoppingcart/shoppingCartActions';
+import './Admin.css';
 
 const Admin = () => {
   const { fetchedData } = useSelector((state) => state);
@@ -33,44 +34,46 @@ const Admin = () => {
           Reset Default
         </button>
       </div>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th scope='col'>#</th>
-            <th scope='col'>Pro.Img</th>
-            <th scope='col'>Pro.Des</th>
-            <th scope='col'>Price</th>
-            <th scope='col'>Edit</th>
-            <th scope='col'>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {fetchedData.products.map((product, index) => {
-            return (
-              <tr key={product.id}>
-                <td>{index + 1}</td>
-                <td>
-                  <img className='cart-img' src={product.image} alt='' />
-                </td>
-                <td>{product.title}</td>
-                <td>{product.price}</td>
-                <td>
-                  <i
-                    onClick={() => history.push(`/productform/${product.id}`)}
-                    style={{ cursor: 'pointer' }}
-                    className='fas fa-edit'></i>
-                </td>
-                <td>
-                  <i
-                    onClick={() => dispatch(adminDeleteAction(product))}
-                    className='fas fa-trash'
-                    style={{ cursor: 'pointer' }}></i>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className='table-responsive text-center'>
+        <table className='admin-table table '>
+          <thead>
+            <tr>
+              <th scope='col'>#</th>
+              <th scope='col'>Pro.Img</th>
+              <th scope='col'>Pro.Des</th>
+              <th scope='col'>Price</th>
+              <th scope='col'>Edit</th>
+              <th scope='col'>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fetchedData.products.map((product, index) => {
+              return (
+                <tr key={product.id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <img className='cart-img' src={product.image} alt='' />
+                  </td>
+                  <td>{product.title}</td>
+                  <td>{product.price}</td>
+                  <td>
+                    <i
+                      onClick={() => history.push(`/productform/${product.id}`)}
+                      style={{ cursor: 'pointer' }}
+                      className='fas fa-edit'></i>
+                  </td>
+                  <td>
+                    <i
+                      onClick={() => dispatch(adminDeleteAction(product))}
+                      className='fas fa-trash'
+                      style={{ cursor: 'pointer' }}></i>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </React.Fragment>
   );
 };
