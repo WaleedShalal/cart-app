@@ -72,7 +72,7 @@ const ProductForm = () => {
             className='form-control'
             step='1'
             autoComplete='off'
-            min={fetchedData.products.length}
+            min={id === 'new' && fetchedData.products.length}
           />
         </div>
         <div className='form-group'>
