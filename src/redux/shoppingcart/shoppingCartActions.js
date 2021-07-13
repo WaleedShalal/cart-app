@@ -104,8 +104,8 @@ export const adminAddProduct = (newProduct) => {
 
 export const adminAddAction = (newProduct) => {
   return (dispatch) => {
-    axios.post('https://fakestoreapi.com/products/', newProduct).then((res) => {
-      dispatch(adminAddProduct(res.data));
+    axios.post('https://fakestoreapi.com/products/', newProduct).then(() => {
+      dispatch(adminAddProduct(newProduct));
     });
   };
 };
