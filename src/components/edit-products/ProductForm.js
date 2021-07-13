@@ -5,7 +5,6 @@ import {
   adminAddAction,
   adminEditAction,
 } from '../../redux/shoppingcart/shoppingCartActions';
-// import './ProductForm.css';
 
 const ProductForm = () => {
   const { fetchedData } = useSelector((state) => state);
@@ -40,8 +39,6 @@ const ProductForm = () => {
       [name]: type === 'number' ? +value : value,
     });
   };
-
-  // console.log(typeof fetchedData.products.length);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
