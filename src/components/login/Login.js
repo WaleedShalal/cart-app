@@ -42,7 +42,7 @@ const Login = () => {
     handleReplace();
     dispatch(loginLogged(true));
     let data = { ...values };
-    let user = data.username;
+    let user = data.username.toLowerCase();
     let pass = data.password;
     dispatch(loginData(user, pass));
     localStorage.setItem('username', JSON.stringify(user));
@@ -59,7 +59,6 @@ const Login = () => {
     for (const error of res.error.details) {
       errors[error.path] = error.message;
     }
-    console.log(errors);
     dispatch(loginErrors(errors));
     return errors;
   };

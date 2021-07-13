@@ -31,9 +31,9 @@ const ProductForm = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
   const handleChange = (e) => {
     let { name, value, type } = e.target;
+    console.log(name, type);
     setNewProduct({
       ...newProduct,
       count: 0,
@@ -41,12 +41,16 @@ const ProductForm = () => {
     });
   };
 
+  // console.log(typeof fetchedData.products.length);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     //Add
     if (id === 'new') {
       //Call Backend
-      dispatch(adminAddAction(newProduct));
+      dispatch(
+        adminAddAction({ ...newProduct, id: fetchedData.products.length + 1 }),
+      );
       //Edit
     } else {
       //Call Backend
@@ -60,21 +64,22 @@ const ProductForm = () => {
     <React.Fragment>
       <h1>{id === 'new' ? 'Add Product' : 'Edit Product'}</h1>
       <form onSubmit={handleSubmit}>
-        <div className='form-group'>
-          <label htmlFor='id'>ID</label>
-          <input
-            type='number'
-            name='id'
-            id='id'
-            value={newProduct.id}
-            onChange={handleChange}
-            spellCheck='false'
-            className='form-control'
-            step='1'
-            autoComplete='off'
-            min={id === 'new' && fetchedData.products.length}
-          />
-        </div>
+        {id !== 'new' && (
+          <div className='form-group'>
+            <label htmlFor='id'>ID</label>
+            <input
+              type='number'
+              name='id'
+              id='id'
+              value={newProduct.id}
+              onChange={handleChange}
+              spellCheck='false'
+              className='form-control'
+              step='1'
+              autoComplete='off'
+            />
+          </div>
+        )}
         <div className='form-group'>
           <label htmlFor='title'>Title</label>
           <input
@@ -120,7 +125,9 @@ const ProductForm = () => {
             value={newProduct.category}
             className='category-option form-control'
             id='categorys'>
-            <option value=''>Select ---</option>
+            <option value='' disabled>
+              Select ---
+            </option>
             <option value="men's clothing">men's clothing</option>
             <option value="women's clothing">women's clothing</option>
             <option value='jewelery'>jewelery</option>

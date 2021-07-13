@@ -1,0 +1,11 @@
+ul li span {
+  text-transform: lowercase;
+}
+@media (max-width: 575.98px) {
+  h2 {
+    font-size: 1em;
+  }
+  ul li {
+    font-size: 0.9em;
+  }
+}
