@@ -16,10 +16,16 @@ import {
   removeAllCart,
 } from './redux/shoppingcart/shoppingCartActions';
 import AboutApp from './components/about-app/AboutApp';
+import ReactGA from 'react-ga';
 
 const App = () => {
   const { loginInfo } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    ReactGA.initialize('UA-222701509-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  });
 
   useEffect(() => {
     dispatch(fetchProducts());
